@@ -1,0 +1,15 @@
+---
+# tasks file for ansible-role-kube-devops-tools
+- name: Create a Persistent Volume and claim it
+  k8s:
+    state: present
+    src: pvs.yml
+- name: Install Prometheus
+  become_user: {{ linux_user }}
+  command: helm install --name my-prometheus stable/prometheus
+- name: Install Jenkins Master
+  become_user: {{ linux_user }}
+  command: helm install --name my-jenkins stable/jenkins 
+- name: Install Kibana
+  become_user: {{ linux_user }}
+  command: helm install --name my-kybana stable/kibana

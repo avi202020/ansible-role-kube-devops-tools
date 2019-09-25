@@ -1,0 +1,4 @@
+- hosts: kmaster{{ env_classification }}
+  become: yes
+  roles:
+     - ernestomedina17.ansible_role_kube_devops_tools
