@@ -2,7 +2,7 @@
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: prometheus-vol-claim
+  name: prometheus-server-vol-claim
 spec:
   accessModes:
     - ReadWriteMany
@@ -11,7 +11,21 @@ spec:
       storage: 1Gi
   selector:
     matchLabels:
-      name: "prometheus-vol"
+      name: "prometheus-server-vol"
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: prometheus-alertmanager-vol-claim
+spec:
+  accessModes:
+    - ReadWriteMany
+  resources:
+    requests:
+      storage: 1Gi
+  selector:
+    matchLabels:
+      name: "prometheus-alertmanager-vol"
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim

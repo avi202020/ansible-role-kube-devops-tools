@@ -2,9 +2,9 @@
 apiVersion: v1
 kind: PersistentVolume
 metadata:
-  name: prometheus-vol
+  name: prometheus-server-vol
   labels:
-    name: prometheus-vol
+    name: prometheus-server-vol
 spec:
   capacity:
     storage: 1Gi 
@@ -12,6 +12,22 @@ spec:
     - ReadWriteMany 
   hostPath:
     path: "/vagrant-vol01"
+    type: "Directory"
+  persistentVolumeReclaimPolicy: "Retain"
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: prometheus-alertmanager-vol
+  labels:
+    name: prometheus-alertmanager-vol
+spec:
+  capacity:
+    storage: 1Gi 
+  accessModes:
+    - ReadWriteMany 
+  hostPath:
+    path: "/vagrant-vol02"
     type: "Directory"
   persistentVolumeReclaimPolicy: "Retain"
 ---
@@ -27,6 +43,6 @@ spec:
   accessModes:
     - ReadWriteMany 
   hostPath:
-    path: "/vagrant-vol02"
+    path: "/vagrant-vol03"
     type: "Directory"
   persistentVolumeReclaimPolicy: "Retain"

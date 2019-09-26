@@ -11,10 +11,10 @@
     src: pvclaims.yml
 - name: Install Prometheus
   become_user: {{ linux_user }}
-  command: helm install --set master.adminPassword={{ Jenkins_Admin_Password }} --name my-prometheus stable/prometheus
+  command: helm install --set server.persistentVolume.existingClaim=prometheus-server-vol-claim --set alertmanager.persistentVolume.existingClaim=prometheus-alertmanager-vol --name my-prometheus stable/prometheus
 - name: Install Jenkins Master
   become_user: {{ linux_user }}
-  command: helm install --set persistence.existingClaim=jenkins-vol-claim --name my-jenkins stable/jenkins 
+  command: helm install --set persistence.existingClaim=jenkins-vol-claim --set master.adminPassword={{ Jenkins_Admin_Password }} --name my-jenkins stable/jenkins 
 - name: Install Kibana
   become_user: {{ linux_user }}
   command: helm install --name my-kybana stable/kibana
