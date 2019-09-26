@@ -5,7 +5,6 @@ This role uses Helm on a preexistent Kubernetes namespace to install:
 	- Prometheus
 	- Kibana
 	- Jenkins
-	- Spinnaker
 
 Requirements
 ------------
@@ -35,11 +34,10 @@ None
 Example Playbook
 ----------------
 
-Including an example of how to use your role (for instance, with variables passed in as parameters) is always nice for users too:
-
-    - hosts: servers
-      roles:
-         - { role: username.rolename, x: 42 }
+- hosts: kmaster{{ env_classification }}
+  become: yes
+  roles:
+     - ernestomedina17.ansible_role_kube_devops_tools
 
 License
 -------
