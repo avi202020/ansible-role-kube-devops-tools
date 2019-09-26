@@ -1,5 +1,16 @@
 ---
 # tasks file for ansible-role-kube-devops-tools
+- name: Copy the StorageClass.yml
+  copy:
+    src: StorageClass.yml
+    dest: ~/StorageClass.yml
+    owner: root
+    group: root
+    mode: '0644'
+- name: Create the manual StorageClass
+  k8s:
+    state: present
+    src: ~/StorageClass.yml
 - name: Copy the pvs.yml file
   copy:
     src: pvs.yml
