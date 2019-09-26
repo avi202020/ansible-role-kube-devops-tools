@@ -3,7 +3,7 @@ Kubernetes DevOps Tools
 
 This role uses Helm on a preexistent Kubernetes namespace to install:
 	- Prometheus
-	- Kibana
+	- Grafana
 	- Jenkins
 
 Requirements
@@ -34,10 +34,14 @@ None
 Example Playbook
 ----------------
 
-- hosts: kmaster{{ env_classification }}
-  become: yes
-  roles:
-     - ernestomedina17.ansible_role_kube_devops_tools
+	- hosts: kmaster{{ env_classification }}
+  	  become: yes
+  	  roles:
+     	  - ernestomedina17.ansible_role_kube_devops_tools
+
+Install and run: 
+- ansible-galaxy install ernestomedina17.ansible_role_kube_devops_tools --force
+- ansible-playbook .ansible/roles/ernestomedina17.ansible_role_kube_devops_tools/playme05.yml
 
 License
 -------
