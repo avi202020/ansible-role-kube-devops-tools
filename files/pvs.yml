@@ -6,6 +6,7 @@ metadata:
   labels:
     name: prometheus-server-vol
 spec:
+  storageClassName: manual
   capacity:
     storage: 1Gi 
   accessModes:
@@ -22,6 +23,7 @@ metadata:
   labels:
     name: prometheus-alertmanager-vol
 spec:
+  storageClassName: manual
   capacity:
     storage: 1Gi 
   accessModes:
@@ -38,6 +40,7 @@ metadata:
   labels:
     name: jenkins-vol
 spec:
+  storageClassName: manual
   capacity:
     storage: 1Gi 
   accessModes:
