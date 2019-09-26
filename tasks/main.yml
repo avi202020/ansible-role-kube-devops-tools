@@ -10,7 +10,7 @@
 - name: Create the PVs
   k8s:
     state: present
-    src: pvs.yml
+    src: ~/pvs.yml
 - name: Copy the pvclaims.yml file
   become_user: "{{ linux_user }}"
   copy:
@@ -23,7 +23,7 @@
   become_user: "{{ linux_user }}"
   k8s:
     state: present
-    src: pvclaims.yml
+    src: ~/pvclaims.yml
 - name: Install Prometheus
   become_user: "{{ linux_user }}"
   command: helm install --set server.persistentVolume.existingClaim=prometheus-server-vol-claim --set alertmanager.persistentVolume.existingClaim=prometheus-alertmanager-vol --name my-prometheus stable/prometheus
