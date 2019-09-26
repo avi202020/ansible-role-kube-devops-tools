@@ -17,7 +17,7 @@
     src: pvclaims.yml
     dest: ~/pvclaims.yml
     owner: "{{ linux_user }}"
-    group: root
+    group: "{{ linux_group }}"
     mode: '0644'
 - name: Claim the PVs
   become_user: "{{ linux_user }}"

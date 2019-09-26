@@ -3,3 +3,4 @@
 env_classification: dev
 Jenkins_Admin_Password: "{{lookup('file', 'Jenkins_Admin_Password.txt')}}"
 linux_user: devops{{ env_classification }}
+linux_group: devops{{ env_classification }}
