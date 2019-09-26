@@ -1,9 +1,22 @@
 ---
 # tasks file for ansible-role-kube-devops-tools
+- name: Copy the pvs.yml file
+  copy:
+    src: pvs.yml
+    dest: ~/pvs.yml
+    owner: root
+    group: root
+    mode: '0644'
 - name: Create the PVs
   k8s:
     state: present
     src: pvs.yml
+- name: Copy the pvclaims.yml file
+  copy:
+    src: pvclaims.yml
+    dest: ~/pvclaims.yml
+    owner: "{{ linux_user }}"
+    mode: '0644'
 - name: Claim the PVs
   become_user: "{{ linux_user }}"
   k8s:
