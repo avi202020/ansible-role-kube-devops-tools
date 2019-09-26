@@ -26,7 +26,7 @@
     src: ~/pvclaims.yml
 - name: Install Prometheus
   become_user: "{{ linux_user }}"
-  command: /usr/local/bin/helm install --set server.persistentVolume.existingClaim=prometheus-server-vol-claim --set alertmanager.persistentVolume.existingClaim=prometheus-alertmanager-vol --name my-prometheus stable/prometheus
+  command: /usr/local/bin/helm install --set server.persistentVolume.existingClaim=prometheus-server-vol-claim --set alertmanager.persistentVolume.existingClaim=prometheus-alertmanager-vol-claim --name my-prometheus stable/prometheus
 - name: Install Jenkins Master
   become_user: "{{ linux_user }}"
   command: /usr/local/bin/helm install --set persistence.existingClaim=jenkins-vol-claim --set master.adminPassword={{ Jenkins_Admin_Password }} --name my-jenkins stable/jenkins 
