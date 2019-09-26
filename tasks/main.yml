@@ -12,6 +12,7 @@
     state: present
     src: pvs.yml
 - name: Copy the pvclaims.yml file
+  become_user: "{{ linux_user }}"
   copy:
     src: pvclaims.yml
     dest: ~/pvclaims.yml
