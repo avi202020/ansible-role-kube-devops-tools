@@ -36,6 +36,7 @@ spec:
     - ReadWriteMany
   resources:
     requests:
+      storage: 1Gi
   selector:
     matchLabels:
       name: "jenkins-vol"
