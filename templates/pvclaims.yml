@@ -5,6 +5,7 @@ metadata:
   name: prometheus-server-vol-claim
   namespace: "{{ namespace }}"
 spec:
+  storageClassName: manual
   accessModes:
     - ReadWriteMany
   resources:
@@ -20,6 +21,7 @@ metadata:
   name: prometheus-alertmanager-vol-claim
   namespace: "{{ namespace }}"
 spec:
+  storageClassName: manual
   accessModes:
     - ReadWriteMany
   resources:
@@ -35,6 +37,7 @@ metadata:
   name: jenkins-vol-claim
   namespace: "{{ namespace }}"
 spec:
+  storageClassName: manual
   accessModes:
     - ReadWriteMany
   resources:
