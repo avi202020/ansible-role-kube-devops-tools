@@ -30,30 +30,3 @@ spec:
     path: "/vagrant-vol02"
     type: "Directory"
   persistentVolumeReclaimPolicy: "Retain"
----
-apiVersion: v1
-kind: PersistentVolumeClaim
-metadata:
-  name: prometheus-vol-claim
-spec:
-  accessModes:
-    - ReadWriteMany
-  resources:
-    requests:
-      storage: 1Gi
-  selector:
-    matchLabels:
-      name: "prometheus-vol"
----
-apiVersion: v1
-kind: PersistentVolumeClaim
-metadata:
-  name: jenkins-vol-claim
-spec:
-  accessModes:
-    - ReadWriteMany
-  resources:
-    requests:
-  selector:
-    matchLabels:
-      name: "jenkins-vol"

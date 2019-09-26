@@ -1,15 +1,20 @@
 ---
 # tasks file for ansible-role-kube-devops-tools
-- name: Create a Persistent Volume and claim it
+- name: Create the PVs
   k8s:
     state: present
     src: pvs.yml
+- name: Claim the PVs
+  become_user: {{ linux_user }}
+  k8s:
+    state: present
+    src: pvclaims.yml
 - name: Install Prometheus
   become_user: {{ linux_user }}
-  command: helm install --name my-prometheus stable/prometheus
+  command: helm install --set master.adminPassword={{ Jenkins_Admin_Password }} --name my-prometheus stable/prometheus
 - name: Install Jenkins Master
   become_user: {{ linux_user }}
-  command: helm install --name my-jenkins stable/jenkins 
+  command: helm install --set persistence.existingClaim=jenkins-vol-claim --name my-jenkins stable/jenkins 
 - name: Install Kibana
   become_user: {{ linux_user }}
   command: helm install --name my-kybana stable/kibana
