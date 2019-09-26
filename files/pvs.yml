@@ -2,24 +2,58 @@
 apiVersion: v1
 kind: PersistentVolume
 metadata:
-  name: vagrant
+  name: prometheus-vol
+  labels:
+    name: prometheus-vol
 spec:
   capacity:
     storage: 1Gi 
   accessModes:
     - ReadWriteMany 
   hostPath:
-    path: "/vagrant"
+    path: "/vagrant-vol01"
+    type: "Directory"
+  persistentVolumeReclaimPolicy: "Retain"
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: jenkins-vol
+  labels:
+    name: jenkins-vol
+spec:
+  capacity:
+    storage: 1Gi 
+  accessModes:
+    - ReadWriteMany 
+  hostPath:
+    path: "/vagrant-vol02"
     type: "Directory"
   persistentVolumeReclaimPolicy: "Retain"
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: vagrant
+  name: prometheus-vol-claim
 spec:
   accessModes:
     - ReadWriteMany
   resources:
     requests:
       storage: 1Gi
+  selector:
+    matchLabels:
+      name: "prometheus-vol"
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: jenkins-vol-claim
+spec:
+  accessModes:
+    - ReadWriteMany
+  resources:
+    requests:
+  selector:
+    matchLabels:
+      name: "jenkins-vol"
