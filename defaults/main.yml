@@ -1,4 +1,5 @@
 ---
 # defaults file for ansible-role-kube-devops-tools
+env_classification: dev
 Jenkins_Admin_Password: "{{lookup('file', 'Jenkins_Admin_Password.txt')}}"
 linux_user: devops{{ env_classification }}
