@@ -1,29 +1,8 @@
 ---
 # tasks file for ansible-role-kube-devops-tools
-- name: Copy the pvs.yml file
-  copy:
-    src: pvs.yml
-    dest: ~/pvs.yml
-    owner: root
-    group: root
-    mode: '0644'
-- name: Create the PVs
-  k8s:
-    state: present
-    src: ~/pvs.yml
-- name: Copy the pvclaims.yml file
+- name: Install nfs-client-provisioner
   become_user: "{{ linux_user }}"
-  template:
-    src: pvclaims.yml
-    dest: ~/pvclaims.yml
-    owner: "{{ linux_user }}"
-    group: "{{ linux_group }}"
-    mode: '0644'
-- name: Claim the PVs
-  become_user: "{{ linux_user }}"
-  k8s:
-    state: present
-    src: ~/pvclaims.yml
+  command: /usr/local/bin/helm install --set nfs.server={{ nfs_server_ip }} --set nfs.path={{ nfs_exported_path }} --set storageClass.defaultClass={{ default_class }} --name nfs-client-provisioner stable/nfs-client-provisioner
 #- name: Install Prometheus
 #  become_user: "{{ linux_user }}"
 #  command: /usr/local/bin/helm install --set server.persistentVolume.existingClaim=prometheus-server-vol-claim --set alertmanager.persistentVolume.existingClaim=prometheus-alertmanager-vol-claim --name my-prometheus stable/prometheus
