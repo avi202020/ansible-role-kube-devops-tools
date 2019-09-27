@@ -5,7 +5,6 @@ metadata:
   name: prometheus-server-vol-claim
   namespace: "{{ namespace }}"
 spec:
-  storageClassName: manual
   accessModes:
     - ReadWriteMany
   resources:
@@ -13,7 +12,7 @@ spec:
       storage: 1Gi
   selector:
     matchLabels:
-      name: "prometheus-server-vol"
+      app.kubernetes.io/name: "prometheus-server"
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim
@@ -21,7 +20,6 @@ metadata:
   name: prometheus-alertmanager-vol-claim
   namespace: "{{ namespace }}"
 spec:
-  storageClassName: manual
   accessModes:
     - ReadWriteMany
   resources:
@@ -29,7 +27,7 @@ spec:
       storage: 1Gi
   selector:
     matchLabels:
-      name: "prometheus-alertmanager-vol"
+      app.kubernetes.io/name: "prometheus-alertmanager"
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim
@@ -37,7 +35,6 @@ metadata:
   name: jenkins-vol-claim
   namespace: "{{ namespace }}"
 spec:
-  storageClassName: manual
   accessModes:
     - ReadWriteMany
   resources:
@@ -45,4 +42,4 @@ spec:
       storage: 1Gi
   selector:
     matchLabels:
-      name: "jenkins-vol"
+      app.kubernetes.io/name: "jenkins"

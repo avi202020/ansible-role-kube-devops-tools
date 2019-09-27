@@ -4,9 +4,8 @@ kind: PersistentVolume
 metadata:
   name: prometheus-server-vol
   labels:
-    name: prometheus-server-vol
+    app.kubernetes.io/name: "prometheus-server"
 spec:
-  storageClassName: manual
   capacity:
     storage: 1Gi 
   accessModes:
@@ -21,9 +20,8 @@ kind: PersistentVolume
 metadata:
   name: prometheus-alertmanager-vol
   labels:
-    name: prometheus-alertmanager-vol
+    app.kubernetes.io/name: "prometheus-alertmanager"
 spec:
-  storageClassName: manual
   capacity:
     storage: 1Gi 
   accessModes:
@@ -38,9 +36,8 @@ kind: PersistentVolume
 metadata:
   name: jenkins-vol
   labels:
-    name: jenkins-vol
+    app.kubernetes.io/name: "jenkins"
 spec:
-  storageClassName: manual
   capacity:
     storage: 1Gi 
   accessModes:
