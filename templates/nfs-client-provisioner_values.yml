@@ -1,0 +1,28 @@
+replicaCount: 1
+strategyType: Recreate
+image:
+  repository: quay.io/external_storage/nfs-client-provisioner
+  tag: v3.1.0-k8s1.11
+  pullPolicy: IfNotPresent
+nfs:
+  server: {{ nfs_server_ip }}
+  path: {{ nfs_exported_path }}
+  mountOptions:
+storageClass:
+  create: true
+  defaultClass: true
+  name: nfs-client
+  allowVolumeExpansion: true
+  reclaimPolicy: Delete
+  archiveOnDelete: true
+rbac:
+  create: true
+podSecurityPolicy:
+  enabled: false
+serviceAccount:
+  create: true
+  name: nfs-client-provisioner
+resources: {}
+nodeSelector: {}
+tolerations: []
+affinity: {}

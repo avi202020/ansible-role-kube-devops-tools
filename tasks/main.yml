@@ -3,7 +3,7 @@
 - name: Install nfs-client-provisioner
   become: yes
   become_user: "{{ linux_user }}"
-  command: /usr/local/bin/helm install --set nfs.server={{ nfs_server_ip }} --set nfs.path={{ nfs_exported_path }} --set storageClass.defaultClass={{ default_class }} --name nfs-client-provisioner stable/nfs-client-provisioner
+  command: /usr/local/bin/helm install --values ~/nfs-client-provisioner_values.yml --name nfs-client-provisioner stable/nfs-client-provisioner
 #- name: Install Prometheus
 #  become_user: "{{ linux_user }}"
 #  command: /usr/local/bin/helm install --set server.persistentVolume.existingClaim=prometheus-server-vol-claim --set alertmanager.persistentVolume.existingClaim=prometheus-alertmanager-vol-claim --name my-prometheus stable/prometheus
