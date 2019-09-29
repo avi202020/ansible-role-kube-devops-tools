@@ -16,12 +16,12 @@ storageClass:
   reclaimPolicy: Delete
   archiveOnDelete: true
 rbac:
-  create: false
+  create: true
 podSecurityPolicy:
   enabled: false
 serviceAccount:
-  create: false
-  name: helm
+  create: true
+  name: nfs-client
 resources: {}
 nodeSelector: {}
 tolerations: []
