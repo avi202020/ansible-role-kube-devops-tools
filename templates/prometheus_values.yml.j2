@@ -37,7 +37,7 @@ alertmanager:
   configFileName: alertmanager.yml
   ingress:
     enabled: true
-    annotations: {}
+    annotations: 
       kubernetes.io/ingress.class: nginx
     extraLabels: {}
     hosts: ["{{ inventory_hostname_short }}.{{ company_domain }}/alertmanager"]
@@ -184,7 +184,7 @@ server:
   configMapOverrideName: ""
   ingress:
     enabled: true
-    annotations: {}
+    annotations: 
       kubernetes.io/ingress.class: nginx
     extraLabels: {}
     hosts: ["{{ inventory_hostname_short }}.{{ company_domain }}/prometheus"]
@@ -245,7 +245,7 @@ pushgateway:
   extraArgs: {}
   ingress:
     enabled: true
-    annotations: {}
+    annotations: 
       kubernetes.io/ingress.class: nginx
     hosts: ["{{ inventory_hostname_short }}.{{ company_domain }}/pushgateway"]
     tls: []
