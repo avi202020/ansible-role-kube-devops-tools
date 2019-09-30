@@ -29,17 +29,18 @@ alertmanager:
   priorityClassName: ""
   extraArgs: {}
   prefixURL: ""
-  baseURL: "/"
+  baseURL: "{{ inventory_hostname_short }}.{{ company_domain }}/alertmanager"
   extraEnv: {}
   extraSecretMounts: []
   configMapOverrideName: ""
   configFromSecret: ""
   configFileName: alertmanager.yml
   ingress:
-    enabled: false
+    enabled: true
     annotations: {}
+      kubernetes.io/ingress.class: nginx
     extraLabels: {}
-    hosts: []
+    hosts: ["{{ inventory_hostname_short }}.{{ company_domain }}/alertmanager"]
     tls: []
   tolerations: []
   nodeSelector: {}
@@ -165,7 +166,7 @@ server:
     pullPolicy: IfNotPresent
   priorityClassName: ""
   prefixURL: ""
-  baseURL: ""
+  baseURL: "{{ inventory_hostname_short }}.{{ company_domain }}/prometheus"
   env: {}
   enableAdminApi: false
   skipTSDBLock: false
@@ -182,10 +183,11 @@ server:
   extraSecretMounts: []
   configMapOverrideName: ""
   ingress:
-    enabled: false
+    enabled: true
     annotations: {}
+      kubernetes.io/ingress.class: nginx
     extraLabels: {}
-    hosts: []
+    hosts: ["{{ inventory_hostname_short }}.{{ company_domain }}/prometheus"]
     tls: []
   tolerations: []
   nodeSelector: {}
@@ -242,9 +244,10 @@ pushgateway:
   priorityClassName: ""
   extraArgs: {}
   ingress:
-    enabled: false
+    enabled: true
     annotations: {}
-    hosts: []
+      kubernetes.io/ingress.class: nginx
+    hosts: ["{{ inventory_hostname_short }}.{{ company_domain }}/pushgateway"]
     tls: []
   tolerations: []
   nodeSelector: {}
