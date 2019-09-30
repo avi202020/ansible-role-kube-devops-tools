@@ -7,6 +7,10 @@
     mode: '0644'
 - name: Install nfs-client-provisioner
   command: /usr/local/bin/helm install --values ~/nfs-client-provisioner_values.yml --name nfs-client-provisioner stable/nfs-client-provisioner
+  register: result
+- name: Display nfs-client-provisioner output
+  debug:
+    var: result
 - name: Copy the prometheus_values.yml.j2 template
   template: 
     src: prometheus_values.yml.j2 
@@ -14,6 +18,10 @@
     mode: '0644'
 - name: Install Prometheus
   command: /usr/local/bin/helm install --values ~/prometheus_values.yml --name prometheus stable/prometheus
+  register: result
+- name: Display Prometheus output
+  debug:
+    var: result
 #- name: Install Jenkins Master
 #  become_user: "{{ linux_user }}"
 #  command: /usr/local/bin/helm install --set persistence.existingClaim=jenkins-vol-claim --set master.adminPassword={{ Jenkins_Admin_Password }} --name my-jenkins stable/jenkins 
