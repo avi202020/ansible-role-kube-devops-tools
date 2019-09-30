@@ -29,7 +29,7 @@ alertmanager:
   priorityClassName: ""
   extraArgs: {}
   prefixURL: ""
-  baseURL: "{{ inventory_hostname_short }}.{{ company_domain }}/alertmanager"
+  baseURL: "{{ inventory_hostname_short }}.{{ company_domain }}:{{ lookup('file', '~/INGRESS_NGINX_NODE_PORT.txt') }}/alertmanager"
   extraEnv: {}
   extraSecretMounts: []
   configMapOverrideName: ""
@@ -166,7 +166,7 @@ server:
     pullPolicy: IfNotPresent
   priorityClassName: ""
   prefixURL: ""
-  baseURL: "{{ inventory_hostname_short }}.{{ company_domain }}/prometheus"
+  baseURL: "{{ inventory_hostname_short }}.{{ company_domain }}:{{ lookup('file', '~/INGRESS_NGINX_NODE_PORT.txt') }}/prometheus"
   env: {}
   enableAdminApi: false
   skipTSDBLock: false
