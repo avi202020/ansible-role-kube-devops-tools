@@ -36,6 +36,7 @@ Example Playbook
 
 	- hosts: kmaster{{ env_classification }}
   	  become: yes
+  	  become_user: "{{ linux_user }}"
   	  roles:
      	  - ernestomedina17.ansible_role_kube_devops_tools
 
