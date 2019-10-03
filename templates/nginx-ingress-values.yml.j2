@@ -114,7 +114,7 @@ controller:
   ## extraArgs:
   ##   default-ssl-certificate: "<namespace>/<secret_name>"
   extraArgs: 
-    default-ssl-certificate: "{{ namespace }}/{{ domain-tls-secret }}"
+    default-ssl-certificate: "{{ namespace }}/domain-tls-secret"
 
   ## Additional environment variables to set
   extraEnvs: []
