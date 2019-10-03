@@ -1,5 +1,6 @@
 ---
 # tasks file for ansible-role-kube-devops-tools
+# NFS Client Provisioner
 - name: Copy the nfs-client-provisioner_values.yml template
   template: 
     src: nfs-client-provisioner_values.yml.j2
@@ -11,17 +12,20 @@
 - name: Display nfs-client-provisioner output
   debug:
     var: result.stdout_lines
-- name: Copy the prometheus_values.yml.j2 template
-  template: 
-    src: prometheus_values.yml.j2 
-    dest: ~/prometheus_values.yml
-    mode: '0644'
-- name: Install Prometheus
-  command: /usr/local/bin/helm install --values ~/prometheus_values.yml --name prometheus stable/prometheus
-  register: result
-- name: Display Prometheus output
-  debug:
-    var: result.stdout_lines
+# Ingress Nginx Proxy
+
+
+#- name: Copy the prometheus_values.yml.j2 template
+#  template: 
+#    src: prometheus_values.yml.j2 
+#    dest: ~/prometheus_values.yml
+#    mode: '0644'
+#- name: Install Prometheus
+#  command: /usr/local/bin/helm install --values ~/prometheus_values.yml --name prometheus stable/prometheus
+#  register: result
+#- name: Display Prometheus output
+#  debug:
+#    var: result.stdout_lines
 #- name: Install Jenkins Master
 #  become_user: "{{ linux_user }}"
 #  command: /usr/local/bin/helm install --set persistence.existingClaim=jenkins-vol-claim --set master.adminPassword={{ Jenkins_Admin_Password }} --name my-jenkins stable/jenkins 

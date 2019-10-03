@@ -7,3 +7,4 @@ linux_group: devops{{ env_classification }}
 namespace: company-com-devops-{{ env_classification }}
 nfs_exported_path: '/storage'
 nfs_server_ip: "192.168.122.1"
+haproxy_ip: "192.168.122.1"
