@@ -1,5 +1,10 @@
 ---
 # tasks file for ansible-role-kube-devops-tools
+#- name: Deploy CentOS 7 as our infiltrated agent
+#  command: kubectl run --generator=run-pod/v1 centos7 --image=centos:7 --port 80 
+#  when: 
+#    - ansible_facts['distribution'] == "CentOS"
+#    - ansible_facts['distribution_major_version'] == "7"
 # NFS Client Provisioner
 - name: Copy the nfs-client-provisioner_values.yml template
   template: 

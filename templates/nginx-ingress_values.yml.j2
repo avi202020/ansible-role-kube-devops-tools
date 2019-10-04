@@ -115,6 +115,8 @@ controller:
   ##   default-ssl-certificate: "<namespace>/<secret_name>"
   extraArgs: 
     default-ssl-certificate: "{{ namespace }}/domain-tls-secret"
+    v: 2
+    --kubeconfig: "~/kubeconfig.yml"
 
   ## Additional environment variables to set
   extraEnvs: []
@@ -408,35 +410,21 @@ revisionHistoryLimit: 10
 ## Default 404 backend
 ##
 defaultBackend:
-
-  ## If false, controller.defaultBackendService must be provided
-  ##
-  enabled: true
-
-  # Can be changed to old api for compatibility reasons: extensions/v1beta1
+  enabled: false
   apiVersion: apps/v1
-
   name: default-backend
   image:
     repository: k8s.gcr.io/defaultbackend-amd64
     tag: "1.5"
     pullPolicy: IfNotPresent
-    # nobody user -> uid 65534
     runAsUser: 65534
-
   extraArgs: {}
-
   serviceAccount:
     create: true
     name:
-  ## Additional environment variables to set for defaultBackend pods
   extraEnvs: []
-
   port: 8080
-
-  ## Readiness and liveness probes for default backend
   ## Ref: https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-probes/
-  ##
   livenessProbe:
     failureThreshold: 3
     initialDelaySeconds: 30
@@ -449,41 +437,17 @@ defaultBackend:
     periodSeconds: 5
     successThreshold: 1
     timeoutSeconds: 5
-
-  ## Node tolerations for server scheduling to nodes with taints
   ## Ref: https://kubernetes.io/docs/concepts/configuration/assign-pod-node/
-  ##
   tolerations: []
-  #  - key: "key"
-  #    operator: "Equal|Exists"
-  #    value: "value"
-  #    effect: "NoSchedule|PreferNoSchedule|NoExecute(1.6 only)"
-
   affinity: {}
-
-  ## Security Context policies for controller pods
   ## See https://kubernetes.io/docs/tasks/administer-cluster/sysctl-cluster/ for
-  ## notes on enabling and using sysctls
-  ##
   podSecurityContext: {}
-
-  # labels to add to the pod container metadata
   podLabels: {}
-  #  key: value
-
-  ## Node labels for default backend pod assignment
   ## Ref: https://kubernetes.io/docs/user-guide/node-selection/
-  ##
   nodeSelector: {}
-
-  ## Annotations to be added to default backend pods
-  ##
   podAnnotations: {}
-
   replicaCount: 1
-
   minAvailable: 1
-
   resources: {}
   # limits:
   #   cpu: 10m
@@ -491,51 +455,34 @@ defaultBackend:
   # requests:
   #   cpu: 10m
   #   memory: 20Mi
-
   service:
     annotations: {}
     omitClusterIP: false
     clusterIP: ""
-
-    ## List of IP addresses at which the default backend service is available
     ## Ref: https://kubernetes.io/docs/user-guide/services/#external-ips
-    ##
     externalIPs: []
-
     loadBalancerIP: ""
     loadBalancerSourceRanges: []
     servicePort: 80
     type: ClusterIP
-
   priorityClassName: ""
-
 ## Enable RBAC as per https://github.com/kubernetes/ingress/tree/master/examples/rbac/nginx and https://github.com/kubernetes/ingress/issues/266
 rbac:
   create: true
-
 # If true, create & use Pod Security Policy resources
 # https://kubernetes.io/docs/concepts/policy/pod-security-policy/
 podSecurityPolicy:
   enabled: false
-
 serviceAccount:
   create: true
   name:
-
 ## Optional array of imagePullSecrets containing private registry credentials
 ## Ref: https://kubernetes.io/docs/tasks/configure-pod-container/pull-image-private-registry/
 imagePullSecrets: []
 # - name: secretName
-
-# TCP service key:value pairs
 # Ref: https://github.com/kubernetes/contrib/tree/master/ingress/controllers/nginx/examples/tcp
-##
 tcp: {}
 #  8080: "default/example-tcp-svc:9000"
-
-# UDP service key:value pairs
 # Ref: https://github.com/kubernetes/contrib/tree/master/ingress/controllers/nginx/examples/udp
-##
 udp: {}
 #  53: "kube-system/kube-dns:53"
-

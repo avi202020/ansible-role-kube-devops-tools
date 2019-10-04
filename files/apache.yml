@@ -1,0 +1,38 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: hello-world
+spec:
+  selector:
+    matchLabels:
+      run: apache-web-server
+  replicas: 2
+  template:
+    metadata:
+      labels:
+        run: apache-web-server
+    spec:
+      containers:
+        - name: hello-world
+          image: httpd
+          ports:
+            - containerPort: 80
+              protocol: TCP
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    run: apache-web-server
+  name: hello-world
+spec:
+  clusterIP:
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 80
+  selector:
+    run: apache-web-server
+  sessionAffinity: None
+  type: ClusterIP
