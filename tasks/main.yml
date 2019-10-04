@@ -1,10 +1,5 @@
 ---
 # tasks file for ansible-role-kube-devops-tools
-#- name: Deploy CentOS 7 as our infiltrated agent
-#  command: kubectl run --generator=run-pod/v1 centos7 --image=centos:7 --port 80 
-#  when: 
-#    - ansible_facts['distribution'] == "CentOS"
-#    - ansible_facts['distribution_major_version'] == "7"
 # NFS Client Provisioner
 - name: Copy the nfs-client-provisioner_values.yml template
   template: 
@@ -29,6 +24,18 @@
 - name: Display nginx-ingress output
   debug:
     var: result.stdout_lines
+# Apache hello-world load balancer example
+- name: Copy the apache.yml file
+  copy:
+    src: apache.yml
+    dest: ~/apache.yml
+    mode: '0644'
+- name: Install apache 
+  command: kubectl apply -f ~/apache.yml
+  register: result
+- name: Display apache output
+  debug:
+    var: result.stdout_lines
 # kubernetes-dashboard UI v2.0.0-beta4
 #- name: Copy the kube_dashboard_role_update.yml file
 #  copy:
@@ -41,29 +48,31 @@
 #  command: kubectl apply -f /root/kube_dashboard_role_update.yml
 #
 # heapster 1.5.4 as dependency for kubernetes-dashboard v1.10.1
-- name: Copy the heapster-values.yml.j2 template
-  template:
-    src: heapster-values.yml.j2
-    dest: ~/heapster-values.yml
-    mode: '0644'
-- name: kubernetes-dashboard
-  command: /usr/local/bin/helm install --values ~/heapster-values.yml --name heapster stable/heapster
-  register: result
-- name: Display heapster output
-  debug:
-    var: result.stdout_lines
+#- name: Copy the heapster-values.yml.j2 template
+#  template:
+#    src: heapster-values.yml.j2
+#    dest: ~/heapster-values.yml
+#    mode: '0644'
+#- name: kubernetes-dashboard
+#  command: /usr/local/bin/helm install --values ~/heapster-values.yml --name heapster stable/heapster
+#  register: result
+#- name: Display heapster output
+#  debug:
+#    var: result.stdout_lines
+#
 # kubernetes-dashboard UI in ns kube-system v1.10.1
-- name: Copy the kubernetes-dashboard_values.yml.j2 template
-  template: 
-    src: kubernetes-dashboard_values.yml.j2
-    dest: ~/kubernetes-dashboard_values.yml
-    mode: '0644'
-- name: kubernetes-dashboard
-  command: /usr/local/bin/helm install --namespace kube-system --values ~/kubernetes-dashboard_values.yml --name kubernetes-dashboard stable/kubernetes-dashboard
-  register: result
-- name: Display kubernetes-dashboard output
-  debug:
-    var: result.stdout_lines
+#- name: Copy the kubernetes-dashboard_values.yml.j2 template
+#  template: 
+#    src: kubernetes-dashboard_values.yml.j2
+#    dest: ~/kubernetes-dashboard_values.yml
+#    mode: '0644'
+#- name: kubernetes-dashboard
+#  command: /usr/local/bin/helm install --namespace kube-system --values ~/kubernetes-dashboard_values.yml --name kubernetes-dashboard stable/kubernetes-dashboard
+#  register: result
+#- name: Display kubernetes-dashboard output
+#  debug:
+#    var: result.stdout_lines
+#
 # Prometheus
 #- name: Copy the prometheus_values.yml.j2 template
 #  template: 
