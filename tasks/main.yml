@@ -24,7 +24,16 @@
 - name: Display nginx-ingress output
   debug:
     var: result.stdout_lines
-# https://hub.helm.sh/charts/stable/heapster
+# kubernetes-dashboard UI v2.0.0-beta4
+#- name: Copy the kube_dashboard_role_update.yml file
+#  copy:
+#    src: kube_dashboard_role_update.yml
+#    dest: ~/kube_dashboard_role_update.yml
+#    mode: '0754'
+#- name: Enable the Web UI
+#  command: kubectl apply -f {{ dashboard_ui }}
+#- name: Update the role so it can list the namespaces
+#  command: kubectl apply -f /root/kube_dashboard_role_update.yml
 #
 # kubernetes-dashboard UI in ns kube-system v1.10.1
 - name: Copy the kubernetes-dashboard_values.yml.j2 template
@@ -33,7 +42,7 @@
     dest: ~/kubernetes-dashboard_values.yml
     mode: '0644'
 - name: kubernetes-dashboard
-  command: /usr/local/bin/helm install --namespace kube-system --values ~/kubernetes-dashboard_values.yml --name kubernetes-dashboard stable/kubernetes-dashboard
+  command: /usr/local/bin/helm install --values ~/kubernetes-dashboard_values.yml --name kubernetes-dashboard stable/kubernetes-dashboard
   register: result
 - name: Display kubernetes-dashboard output
   debug:

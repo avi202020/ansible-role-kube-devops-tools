@@ -11,12 +11,10 @@ labels:
   kubernetes.io/name: "dashboard-ui"
 enableSkipLogin: false
 enableInsecureLogin: false
-## Additional container arguments
-##
-# extraArgs:
-#   - --enable-skip-login 
-#   - --enable-insecure-login
-#   - --system-banner="Welcome to Kubernetes"
+extraArgs:
+  - --metrics-provider="none"
+  - --system-banner="Installed using "ansible-role-kube-devops-tools"
+  - --namespace="{{ namespace }}"
 ## Additional container environment variables
 ##
 extraEnv: []
