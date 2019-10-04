@@ -36,6 +36,15 @@
 - name: Display apache output
   debug:
     var: result.stdout_lines
+- name: Copy set_apache_html_index.sh 
+  copy:
+    src: set_apache_html_index.sh
+    dest: ~/set_apache_html_index.sh
+    mode: '0554'
+- name: Run set_apache_html_index.sh
+  command: ./set_apache_html_index.sh
+  args:
+    chdir: ~
 # kubernetes-dashboard UI v2.0.0-beta4
 #- name: Copy the kube_dashboard_role_update.yml file
 #  copy:

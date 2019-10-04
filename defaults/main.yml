@@ -8,4 +8,4 @@ namespace: company-com-devops-{{ env_classification }}
 nfs_exported_path: '/storage'
 nfs_server_ip: "192.168.122.1"
 haproxy_ip: "192.168.122.1"
-dashboard_ui: https://raw.githubusercontent.com/kubernetes/dashboard/v2.0.0-beta4/aio/deploy/recommended.yaml
+kmaster_ip: "{{ ansible_facts['default_ipv4']['address'] }}"
