@@ -24,14 +24,14 @@
 - name: Display nginx-ingress output
   debug:
     var: result.stdout_lines
-# kubernetes-dashboard UI
+# kubernetes-dashboard UI in ns kube-system v1.10.1
 - name: Copy the kubernetes-dashboard_values.yml.j2 template
   template: 
     src: kubernetes-dashboard_values.yml.j2
     dest: ~/kubernetes-dashboard_values.yml
     mode: '0644'
 - name: kubernetes-dashboard
-  command: /usr/local/bin/helm install --values ~/kubernetes-dashboard_values.yml --name kubernetes-dashboard stable/kubernetes-dashboard
+  command: /usr/local/bin/helm install --namespace kube-system --values ~/kubernetes-dashboard_values.yml --name kubernetes-dashboard stable/kubernetes-dashboard
   register: result
 - name: Display kubernetes-dashboard output
   debug:
