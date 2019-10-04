@@ -245,10 +245,9 @@ controller:
     ## List of IP addresses at which the controller services are available
     ## Ref: https://kubernetes.io/docs/user-guide/services/#external-ips
     ##
-    externalIPs:
-      - {{ haproxy_ip }}
+    externalIPs: []
 
-    loadBalancerIP: "{{ haproxy_ip }}"
+    loadBalancerIP: ""
     loadBalancerSourceRanges: []
 
     enableHttp: true

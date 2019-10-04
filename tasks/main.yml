@@ -12,6 +12,18 @@
 - name: Display nfs-client-provisioner output
   debug:
     var: result.stdout_lines
+# Ingress Nginx Proxy
+- name: Copy the nginx-ingress_values.yml.j2 template
+  template:
+    src: nginx-ingress_values.yml.j2 
+    dest: ~/nginx-ingress_values.yml
+    mode: '0644'
+- name: Install nginx-ingress
+  command: /usr/local/bin/helm install --values ~/nginx-ingress_values.yml --name nginx-ingress stable/nginx-ingress
+  register: result
+- name: Display nginx-ingress output
+  debug:
+    var: result.stdout_lines
 # kubernetes-dashboard UI
 - name: Copy the kubernetes-dashboard_values.yml.j2 template
   template: 
@@ -34,18 +46,6 @@
 #  command: /usr/local/bin/helm install --values ~/prometheus_values.yml --name prometheus stable/prometheus
 #  register: result
 #- name: Display Prometheus output
-#  debug:
-#    var: result.stdout_lines
-# Ingress Nginx Proxy
-#- name: Copy the nginx-ingress_values.yml.j2 template
-#  template:
-#    src: nginx-ingress_values.yml.j2 
-#    dest: ~/nginx-ingress_values.yml
-#    mode: '0644'
-#- name: Install nginx-ingress
-#  command: /usr/local/bin/helm install --values ~/nginx-ingress_values.yml --name nginx-ingress stable/nginx-ingress
-#  register: result
-#- name: Display nginx-ingress output
 #  debug:
 #    var: result.stdout_lines
 #- name: Install Jenkins Master
