@@ -43,8 +43,6 @@
     mode: '0554'
 - name: Run set_apache_html_index.sh
   command: ./set_apache_html_index.sh
-  args:
-    chdir: ~
 # kubernetes-dashboard UI v2.0.0-beta4
 #- name: Copy the kube_dashboard_role_update.yml file
 #  copy:
@@ -100,3 +98,16 @@
 #- name: Install Kibana
 #  become_user: "{{ linux_user }}"
 #  command: /usr/local/bin/helm install --name my-kybana stable/kibana
+#
+# Ingresses 
+- name: Copy the ingress.yml.j2 template
+  template:
+    src: ingress.yml.j2
+    dest: ~/ingress.yml
+    mode: '0644'
+- name: Apply the ingresses
+  command: kubectl apply -f ~/ingress.yml
+  register: result
+- name: Display ingresses output
+  debug:
+    var: result.stdout_lines
