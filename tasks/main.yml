@@ -43,29 +43,29 @@
     mode: '0554'
 - name: Run set_apache_html_index.sh
   command: ~/set_apache_html_index.sh
-# kubernetes-dashboard UI v2.0.0-beta4
-#- name: Copy the kube_dashboard_role_update.yml file
-#  copy:
-#    src: kube_dashboard_role_update.yml
-#    dest: ~/kube_dashboard_role_update.yml
-#    mode: '0754'
-#- name: Enable the Web UI
-#  command: kubectl apply -f {{ dashboard_ui }}
-#- name: Update the role so it can list the namespaces
-#  command: kubectl apply -f /root/kube_dashboard_role_update.yml
-#
-# heapster 1.5.4 as dependency for kubernetes-dashboard v1.10.1
-#- name: Copy the heapster-values.yml.j2 template
-#  template:
-#    src: heapster-values.yml.j2
-#    dest: ~/heapster-values.yml
-#    mode: '0644'
-#- name: kubernetes-dashboard
-#  command: /usr/local/bin/helm install --values ~/heapster-values.yml --name heapster stable/heapster
-#  register: result
-#- name: Display heapster output
-#  debug:
-#    var: result.stdout_lines
+- name: Copy the ingress-hello-world.yml.j2 template
+  template:
+    src: ingress-hello-world.yml.j2
+    dest: ~/ingress-hello-world.yml
+    mode: '0644'
+- name: Apply the ingresses
+  command: kubectl apply -f ~/ingress-hello-world.yml
+  register: result
+- name: Display ingresses output
+  debug:
+    var: result.stdout_lines
+# metrics-server 0.3.5 - stable as dependency for kubernetes-dashboard v1.10.1
+- name: Copy the metrics-server_values.yml.j2 template
+  template:
+    src: metrics-server_values.yml.j2
+    dest: ~/metrics-server_values.yml
+    mode: '0644'
+- name: Install metrics-server
+  command: /usr/local/bin/helm install --values ~/metrics-server_values.yml --name metrics-server stable/metrics-server
+  register: result
+- name: Display heapster output
+  debug:
+    var: result.stdout_lines
 #
 # kubernetes-dashboard UI in ns kube-system v1.10.1
 #- name: Copy the kubernetes-dashboard_values.yml.j2 template
@@ -98,16 +98,3 @@
 #- name: Install Kibana
 #  become_user: "{{ linux_user }}"
 #  command: /usr/local/bin/helm install --name my-kybana stable/kibana
-#
-# Ingresses 
-- name: Copy the ingress.yml.j2 template
-  template:
-    src: ingress.yml.j2
-    dest: ~/ingress.yml
-    mode: '0644'
-- name: Apply the ingresses
-  command: kubectl apply -f ~/ingress.yml
-  register: result
-- name: Display ingresses output
-  debug:
-    var: result.stdout_lines
