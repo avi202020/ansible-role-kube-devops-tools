@@ -68,12 +68,12 @@ ingress:
     app: "dashboard-ui"
   annotations:
     kubernetes.io/ingress.class: nginx
-    kubernetes.io/tls-acme: 'true'
     nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
     nginx.org/ssl-services: kubernetes-dashboard
     nginx.ingress.kubernetes.io/ssl-passthrough: "true"
-#    nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
+    nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
     nginx.ingress.kubernetes.io/rewrite-target: /$2
+# IMPORTANT: ADD A FORWARD SLASH AT THE END E.g. http(s)://dev.company.com/dashboard-ui/  <-- Right there!!
   paths:
     - /dashboard-ui(/|$)(.*)
   hosts:

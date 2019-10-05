@@ -24,7 +24,7 @@ controller:
     use-proxy-protocol: "true"
     proxy-protocol: "True"
     real-ip-header: "proxy_protocol"
-    set-real-ip-from: "{{ haproxy_ip }}"
+    set-real-ip-from: "0.0.0.0/0"
 
   # Will add custom headers before sending traffic to backends according to https://github.com/kubernetes/ingress-nginx/tree/master/docs/examples/customization/custom-headers
   proxySetHeaders:
