@@ -60,7 +60,7 @@ securityContext:
   runAsUser: 10001
 service:
   annotations: {}
-  labels: {}
+  labels:
   # Add these labels to have metrics-server show up in `kubectl cluster-info`
     kubernetes.io/cluster-service: "true"
     kubernetes.io/name: "Metrics-server"
