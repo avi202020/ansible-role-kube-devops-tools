@@ -239,7 +239,7 @@ kubeStateMetrics:
   replicaCount: 1
   ## kube-state-metrics resource requests and limits
   ## Ref: http://kubernetes.io/docs/user-guide/compute-resources/
-  resources: {}
+  resources:
     limits:
       cpu: 160m
       memory: 160Mi
@@ -325,7 +325,7 @@ nodeExporter:
   ## node-exporter resource limits & requests
   ## Ref: https://kubernetes.io/docs/user-guide/compute-resources/
   ##
-  resources: {}
+  resources:
     limits:
       cpu: 200m
       memory: 50Mi
@@ -519,7 +519,7 @@ server:
       servicePort: 80
   ## Prometheus server resource requests and limits
   ## Ref: http://kubernetes.io/docs/user-guide/compute-resources/
-  resources: {}
+  resources:
     limits:
       cpu: 500m
       memory: 512Mi
@@ -600,7 +600,7 @@ pushgateway:
   replicaCount: 1
   ## pushgateway resource requests and limits
   ## Ref: http://kubernetes.io/docs/user-guide/compute-resources/
-  resources: {}
+  resources:
     limits:
       cpu: 100m
       memory: 320Mi
