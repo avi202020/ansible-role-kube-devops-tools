@@ -54,7 +54,7 @@
 - name: Display ingresses output
   debug:
     var: result.stdout_lines
-# metrics-server 0.3.5 - stable as dependency for kubernetes-dashboard v1.10.1
+# metrics-server 0.3.5 - stable as replacement for hipster
 - name: Copy the metrics-server_values.yml.j2 template
   template:
     src: metrics-server_values.yml.j2
@@ -79,21 +79,21 @@
   debug:
     var: result.stdout_lines
 #
-# Prometheus
-#- name: Copy the prometheus_values.yml.j2 template
-#  template: 
-#    src: prometheus_values.yml.j2 
-#    dest: ~/prometheus_values.yml
-#    mode: '0644'
-#- name: Install Prometheus
-#  command: /usr/local/bin/helm install --values ~/prometheus_values.yml --name prometheus stable/prometheus
-#  register: result
-#- name: Display Prometheus output
-#  debug:
-#    var: result.stdout_lines
 #- name: Install Jenkins Master
 #  become_user: "{{ linux_user }}"
 #  command: /usr/local/bin/helm install --set persistence.existingClaim=jenkins-vol-claim --set master.adminPassword={{ Jenkins_Admin_Password }} --name my-jenkins stable/jenkins 
 #- name: Install Kibana
 #  become_user: "{{ linux_user }}"
 #  command: /usr/local/bin/helm install --name my-kybana stable/kibana
+# Prometheus
+- name: Copy the prometheus_values.yml.j2 template
+  template: 
+    src: prometheus_values.yml.j2 
+    dest: ~/prometheus_values.yml
+    mode: '0644'
+- name: Install Prometheus
+  command: /usr/local/bin/helm install --values ~/prometheus_values.yml --name prometheus stable/prometheus
+  register: result
+- name: Display Prometheus output
+  debug:
+    var: result.stdout_lines
