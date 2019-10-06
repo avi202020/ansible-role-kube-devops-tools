@@ -2,7 +2,7 @@
 # tasks file for ansible-role-kube-devops-tools
 # NFS Client Provisioner
 - name: Copy the nfs-client-provisioner_values.yml template
-  template: 
+  template:
     src: nfs-client-provisioner_values.yml.j2
     dest: ~/nfs-client-provisioner_values.yml
     mode: '0644'
@@ -15,7 +15,7 @@
 # Ingress Nginx Proxy
 - name: Copy the nginx-ingress_values.yml.j2 template
   template:
-    src: nginx-ingress_values.yml.j2 
+    src: nginx-ingress_values.yml.j2
     dest: ~/nginx-ingress_values.yml
     mode: '0644'
 - name: Install nginx-ingress
@@ -30,13 +30,13 @@
     src: apache.yml
     dest: ~/apache.yml
     mode: '0644'
-- name: Install apache 
+- name: Install apache
   command: kubectl apply -f ~/apache.yml
   register: result
 - name: Display apache output
   debug:
     var: result.stdout_lines
-- name: Copy set_apache_html_index.sh 
+- name: Copy set_apache_html_index.sh
   copy:
     src: set_apache_html_index.sh
     dest: ~/set_apache_html_index.sh
@@ -68,7 +68,7 @@
     var: result.stdout_lines
 # kubernetes-dashboard UI in ns kube-system v1.10.1
 - name: Copy the kubernetes-dashboard_values.yml.j2 template
-  template: 
+  template:
     src: kubernetes-dashboard_values.yml.j2
     dest: ~/kubernetes-dashboard_values.yml
     mode: '0644'
@@ -81,14 +81,14 @@
 #
 #- name: Install Jenkins Master
 #  become_user: "{{ linux_user }}"
-#  command: /usr/local/bin/helm install --set persistence.existingClaim=jenkins-vol-claim --set master.adminPassword={{ Jenkins_Admin_Password }} --name my-jenkins stable/jenkins 
+#  command: /usr/local/bin/helm install --set persistence.existingClaim=jenkins-vol-claim --set master.adminPassword={{ Jenkins_Admin_Password }} --name my-jenkins stable/jenkins
 #- name: Install Kibana
 #  become_user: "{{ linux_user }}"
 #  command: /usr/local/bin/helm install --name my-kybana stable/kibana
 # Prometheus
 - name: Copy the prometheus_values.yml.j2 template
-  template: 
-    src: prometheus_values.yml.j2 
+  template:
+    src: prometheus_values.yml.j2
     dest: ~/prometheus_values.yml
     mode: '0644'
 - name: Install Prometheus

@@ -73,11 +73,11 @@ alertmanager:
       nginx.ingress.kubernetes.io/rewrite-target: /$2
     extraLabels: {}
     hosts:
-      - {{ env_classification }}.{{ company_domain }}/alertmanager(/|$)(.*)
+      - "{{ env_classification }}.{{ company_domain }}/alertmanager(/|$)(.*)"
     tls:
       - secretName: domain-tls-secret
         hosts:
-          - {{ env_classification }}.{{ company_domain }}
+          - "{{ env_classification }}.{{ company_domain }}"
   ## Alertmanager Deployment Strategy type
   strategy:
     type: Recreate
@@ -428,16 +428,16 @@ server:
   configMapOverrideName: ""
   ingress:
     enabled: true
-    annotations: {}
+    annotations:
       kubernetes.io/ingress.class: nginx
       nginx.ingress.kubernetes.io/rewrite-target: /$2
     extraLabels: {}
     hosts:
-      - {{ env_classification }}.{{ company_domain }}/prometheus(/|$)(.*)
+      - "{{ env_classification }}.{{ company_domain }}/prometheus(/|$)(.*)"
     tls:
       - secretName: domain-tls-secret
         hosts:
-          - {{ env_classification }}.{{ company_domain }}
+          - "{{ env_classification }}.{{ company_domain }}"
   strategy:
     type: Recreate
   ## Ref: https://kubernetes.io/docs/concepts/configuration/assign-pod-node/
@@ -566,15 +566,15 @@ pushgateway:
   extraArgs: {}
   ingress:
     enabled: true
-    annotations: {}
+    annotations:
       kubernetes.io/ingress.class: nginx
       nginx.ingress.kubernetes.io/rewrite-target: /$2
     hosts:
-      - {{ env_classification }}.{{ company_domain }}/pushgateway(/|$)(.*)
+      - "{{ env_classification }}.{{ company_domain }}/pushgateway(/|$)(.*)"
     tls:
       - secretName: domain-tls-secret
         hosts:
-          - {{ env_classification }}.{{ company_domain }}
+          - "{{ env_classification }}.{{ company_domain }}"
   ## Node tolerations for pushgateway scheduling to nodes with taints
   ## Ref: https://kubernetes.io/docs/concepts/configuration/assign-pod-node/
   tolerations: []
@@ -664,16 +664,16 @@ alertmanagerFiles:
       smtp_smarthost: localhost
       smtp_hello: localhost
       #smtp_auth_username: ernestomedina17
-      #smtp_auth_password: 
-      #smtp_auth_identity: 
-      #smtp_auth_secret: 
+      #smtp_auth_password:
+      #smtp_auth_identity:
+      #smtp_auth_secret:
       smtp_require_tls: false
     #https://prometheus.io/docs/alerting/configuration/#email_config
     receivers:
       - name: default-receiver
         email_configs:
           - send_resolved: true
-          - to: {{ it_support_email_address }}
+          - to: "{{ it_support_email_address }}"
           - tls_config:
               insecure_skip_verify: true
           - text: You have been warned
