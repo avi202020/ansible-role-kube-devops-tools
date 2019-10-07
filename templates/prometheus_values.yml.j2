@@ -330,15 +330,15 @@ pushgateway:
 alertmanagerFiles:
   alertmanager.yml:
     global:
-      smtp_from: alertmanager
-      smtp_smarthost: localhost
+      smtp_from: alertmanager@{{ env_classification }}.{{ company_domain }}
+      smtp_smarthost: localhost:25
       smtp_hello: localhost
       smtp_require_tls: false
     receivers:
       - name: default-receiver
         email_configs:
           - send_resolved: true
-          - to: "{{ it_support_email_address }}"
+          - to: {{ it_support_email_address }}
           - tls_config:
               insecure_skip_verify: true
           - text: You have been warned
