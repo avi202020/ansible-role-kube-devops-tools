@@ -46,6 +46,10 @@ Install and run:
 - ansible-galaxy install ernestomedina17.ansible_role_kube_devops_tools --force
 - ansible-playbook .ansible/roles/ernestomedina17.ansible_role_kube_devops_tools/playme05.yml
 
+Post steps:
+- ansible-galaxy install ernestomedina17.ansible_role_kube_devops_haproxy --force
+- ansible-playbook .ansible/roles/ernestomedina17.ansible_role_kube_devops_haproxy/playme06.yml
+
 License
 -------
 
