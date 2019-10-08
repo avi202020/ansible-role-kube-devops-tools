@@ -329,21 +329,13 @@ pushgateway:
     subPath: ""
 alertmanagerFiles:
   alertmanager.yml:
-    global:
-      smtp_from: alertmanager@{{ env_classification }}.{{ company_domain }}
-      smtp_smarthost: localhost:25
-      smtp_hello: localhost
-      smtp_require_tls: false
+    global: {}
+      # slack_api_url: ''
     receivers:
       - name: default-receiver
-        email_configs:
-          - send_resolved: true
-          - to: {{ it_support_email_address }}
-          - tls_config:
-              insecure_skip_verify: true
-          - text: You have been warned
-          - headers:
-              Subject: Prometheus AlertManager
+        # slack_configs:
+        #  - channel: '@you'
+        #    send_resolved: true
     route:
       group_wait: 10s
       group_interval: 5m
