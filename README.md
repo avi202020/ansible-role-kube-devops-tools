@@ -2,9 +2,11 @@ Kubernetes DevOps Tools
 =========
 
 This role uses Helm on a preexistent Kubernetes namespace to install:
-	- Prometheus
-	- Grafana
-	- Jenkins
+	- kubernetes-dashboard
+	- metrics-server
+	- nfs-client-provisioner
+	- nginx-ingress
+	- prometheus
 
 Requirements
 ------------
